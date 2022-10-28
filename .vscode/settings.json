@@ -8,5 +8,9 @@
     "python.formatting.blackArgs": [
         "-l 79"
     ],
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.analysis.extraPaths": [
+        "./tests/factories",
+        "./tests/factories"
+    ]
 }
