@@ -28,7 +28,6 @@ def product_test():
 
 
 class CompleteReport:
-
     def generate(data: list):
         oldest_date = CompleteReport.__earliest_manufacturing(data)
 
@@ -37,7 +36,7 @@ class CompleteReport:
         company_with_more = CompleteReport.__company_with_more_products(data)
 
         stocks = CompleteReport.__products_stocked_by_company(data)
-        
+
         return (
             f"Data de fabricação mais antiga: {oldest_date}\n"
             f"Data de validade mais próxima: {closets_date}\n"
@@ -91,7 +90,7 @@ class CompleteReport:
         stocks_report = ""
         for prd in qtd_product:
             stocks_report += f"- {prd}: {qtd_product[prd]}\n"
-        
+
         return stocks_report
 
 
