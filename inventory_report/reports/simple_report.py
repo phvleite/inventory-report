@@ -30,54 +30,41 @@ class SimpleReport:
     def generate(data: list):
         oldest_date = SimpleReport.__earliest_manufacturing(data)
 
-        closets_date = SimpleReport.__closest_expiration_date(data).strftime(
-            "%Y-%m-%d"
-        )
+        closets_date = SimpleReport.__closest_expiration_date(data)
 
         company_with_more = SimpleReport.__company_with_more_products(data)
 
-        oldest = oldest_date["data_de_fabricacao"]
         return (
-            f"Data de fabricação mais antiga: {oldest}\n"
+            f"Data de fabricação mais antiga: {oldest_date}\n"
             f"Data de validade mais próxima: {closets_date}\n"
             f"Empresa com mais produtos: {company_with_more}"
         )
 
     def __earliest_manufacturing(data: list):
-        oldest_date = datetime.fromisoformat(data[0]["data_de_fabricacao"])
+        oldest_date = [
+            datetime.fromisoformat(prd["data_de_fabricacao"])
+            for prd in data
+            if prd["nome_da_empresa"] != ""
+        ]
 
-        for prd in data:
-            if prd["nome_da_empresa"] != "":
-                if (
-                    datetime.fromisoformat(prd["data_de_fabricacao"])
-                    < oldest_date
-                ):
-                    oldest_date = datetime.fromisoformat(
-                        prd["data_de_fabricacao"]
-                    )
-
-        return {"data_de_fabricacao": oldest_date.strftime("%Y-%m-%d")}
+        return min(oldest_date).strftime("%Y-%m-%d")
 
     def __closest_expiration_date(data: list):
-        closets_date = datetime.fromisoformat(data[0]["data_de_validade"])
         today = datetime.now()
-        nearets_days = (
-            datetime.fromisoformat(data[0]["data_de_validade"]) - today
-        ).days
+        nearests_days = [
+            (
+                (datetime.fromisoformat(prd["data_de_validade"]) - today).days,
+                prd["data_de_validade"],
+            )
+            for prd in data
+            if datetime.fromisoformat(prd["data_de_validade"]) > today
+        ]
 
-        for prd in data:
-            if (
-                datetime.fromisoformat(prd["data_de_validade"]) > today
-                and prd["nome_da_empresa"] != ""
-            ):
-                qtd_days = (
-                    datetime.fromisoformat(prd["data_de_validade"]) - today
-                ).days
-                if qtd_days < nearets_days:
-                    nearets_days = qtd_days
-                    closets_date = datetime.fromisoformat(
-                        prd["data_de_validade"]
-                    )
+        nearest_day = nearests_days[0][0]
+        for ind in range(len(nearests_days)):
+            if nearests_days[ind][0] < nearest_day:
+                nearest_day = nearests_days[ind][0]
+                closets_date = nearests_days[ind][1]
 
         return closets_date
 
