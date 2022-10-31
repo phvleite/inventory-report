@@ -27,6 +27,7 @@ def product_test():
 
 
 class SimpleReport:
+
     def generate(data: list):
         oldest_date = SimpleReport.__earliest_manufacturing(data)
 
