@@ -75,12 +75,18 @@ class SimpleReport:
                 ).days
                 if qtd_days < nearets_days:
                     nearets_days = qtd_days
-                    closets_date = datetime.fromisoformat(prd["data_de_validade"])
+                    closets_date = datetime.fromisoformat(
+                        prd["data_de_validade"]
+                    )
 
         return closets_date
 
     def __company_with_more_products(data: list):
-        cwm = [prd["nome_da_empresa"] for prd in data  if prd["nome_da_empresa"] != ""]
+        cwm = [
+            prd["nome_da_empresa"]
+            for prd in data
+            if prd["nome_da_empresa"] != ""
+        ]
         cwm_most = Counter(cwm).most_common(1)
         company_with_more = cwm_most[0][0]
         return company_with_more
