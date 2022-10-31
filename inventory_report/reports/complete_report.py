@@ -2,7 +2,6 @@ from datetime import datetime
 from collections import Counter
 from inventory_report.inventory.product import Product
 from tests.factories.product_factory import ProductFactory
-from inventory_report.reports.simple_report import SimpleReport
 
 
 def product_test():
