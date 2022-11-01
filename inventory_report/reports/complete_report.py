@@ -55,6 +55,7 @@ class CompleteReport:
 
     def __closest_expiration_date(data: list):
         today = datetime.now()
+        closets_date = datetime.now().strftime("%Y-%m-%d")
         nearests_days = [
             (
                 (datetime.fromisoformat(prd["data_de_validade"]) - today).days,
@@ -63,13 +64,12 @@ class CompleteReport:
             for prd in data
             if datetime.fromisoformat(prd["data_de_validade"]) > today
         ]
-
         nearest_day = nearests_days[0][0]
+        closets_date = nearests_days[0][1]
         for ind in range(len(nearests_days)):
             if nearests_days[ind][0] < nearest_day:
                 nearest_day = nearests_days[ind][0]
                 closets_date = nearests_days[ind][1]
-
         return closets_date
 
     def __company_with_more_products(data: list):
@@ -85,7 +85,6 @@ class CompleteReport:
     def __products_stocked_by_company(data: list):
         stocks = [product["nome_da_empresa"] for product in data]
         qtd_product = Counter(stocks)
-
         stocks_report = ""
         for prd in qtd_product:
             stocks_report += f"- {prd}: {qtd_product[prd]}\n"
