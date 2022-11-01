@@ -8,12 +8,12 @@ from inventory_report.reports.complete_report import CompleteReport
 class Inventory:
     def import_data(filepath: str, type: str):
         try:
-            report = Inventory.__type_inventory(filepath, type)
+            report = Inventory.__type_file(filepath, type)
             return report
         except ValueError:
             print("Invalid file!")
 
-    def __type_inventory(filepath, type):
+    def __type_file(filepath, type):
         if filepath.endswith(".csv"):
             report = Inventory.__read_file_csv(filepath, type)
         elif filepath.endswith(".json"):
