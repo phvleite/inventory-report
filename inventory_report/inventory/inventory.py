@@ -1,5 +1,6 @@
 import csv
 import json
+import xmltodict
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
 
@@ -18,7 +19,7 @@ class Inventory:
         elif filepath.endswith(".json"):
             report = Inventory.__read_file_json(filepath, type)
         elif filepath.endswith(".xml"):
-            pass
+            report = Inventory.__read_file_xml(filepath, type)
         else:
             raise ValueError("Padrão de arquivo não reconhecido")
         return report
@@ -43,6 +44,14 @@ class Inventory:
             report = Inventory.__verify_type_inventory(inventory_reader, type)
         return report
 
+    def __read_file_xml(filepath, type):
+        with open(filepath, "r") as xml_file:
+            inventory_reader = xmltodict.parse(xml_file.read())["dataset"][
+                "record"
+            ]
+            report = Inventory.__verify_type_inventory(inventory_reader, type)
+        return report
+
     def __verify_type_inventory(data, type):
         if type == "simples":
             report = SimpleReport.generate(data)
@@ -56,7 +65,7 @@ class Inventory:
 if __name__ == "__main__":
     print(
         Inventory.import_data(
-            "inventory_report/data/inventory.json",
+            "inventory_report/data/inventory.xml",
             "completo",
         )
     )
