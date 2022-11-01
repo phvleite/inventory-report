@@ -1,4 +1,5 @@
 import csv
+import json
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
 
@@ -15,7 +16,7 @@ class Inventory:
         if filepath.endswith(".csv"):
             report = Inventory.__read_file_csv(filepath, type)
         elif filepath.endswith(".json"):
-            pass
+            report = Inventory.__read_file_json(filepath, type)
         elif filepath.endswith(".xml"):
             pass
         else:
@@ -27,12 +28,19 @@ class Inventory:
             inventory_reader = csv.reader(csv_file, delimiter=",")
             cab, *data = inventory_reader
             data_csv = []
-            for ind in range(len(data)):
+            data_csv = []
+            for prd in data:
                 csv_dict = {}
-                for row in range(len(cab)):
-                    csv_dict[cab[row]] = data[ind][row]
+                for ind, elem in enumerate(prd):
+                    csv_dict[cab[ind]] = elem
                 data_csv.append(csv_dict)
             report = Inventory.__verify_type_inventory(data_csv, type)
+        return report
+
+    def __read_file_json(filepath, type):
+        with open(filepath) as json_file:
+            inventory_reader = json.load(json_file)
+            report = Inventory.__verify_type_inventory(inventory_reader, type)
         return report
 
     def __verify_type_inventory(data, type):
@@ -46,7 +54,9 @@ class Inventory:
 
 
 if __name__ == "__main__":
-    print(Inventory.import_data(
-        "inventory_report/data/inventory.csv",
-        "simples",
-    ))
+    print(
+        Inventory.import_data(
+            "inventory_report/data/inventory.json",
+            "completo",
+        )
+    )
