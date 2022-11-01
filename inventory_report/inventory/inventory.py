@@ -65,7 +65,7 @@ class Inventory:
 if __name__ == "__main__":
     print(
         Inventory.import_data(
-            "inventory_report/data/inventory.csv",
-            "completo",
+            "inventory_report/data/inventory.xml",
+            "simples",
         )
     )
