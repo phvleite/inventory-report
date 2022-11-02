@@ -29,7 +29,6 @@ class Inventory:
             inventory_reader = csv.reader(csv_file, delimiter=",")
             cab, *data = inventory_reader
             data_csv = []
-            data_csv = []
             for prd in data:
                 csv_dict = {}
                 for ind, elem in enumerate(prd):
