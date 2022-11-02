@@ -60,12 +60,3 @@ class Inventory:
         else:
             raise ValueError("Tipo de relatório inválido")
         return report
-
-
-if __name__ == "__main__":
-    print(
-        Inventory.import_data(
-            "inventory_report/data/inventory.xml",
-            "simples",
-        )
-    )
