@@ -2,6 +2,7 @@ from inventory_report.inventory.product import Product
 from tests.factories.product_factory import ProductFactory
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
+from inventory_report.inventory.inventory import Inventory
 
 
 def product_test():
@@ -28,7 +29,7 @@ def product_test():
 
 def main():
     data_list = []
-    for i in range(101):
+    for i in range(11):
         prd = product_test()
         data_list.append(prd)
 
@@ -38,6 +39,13 @@ def main():
     print("CompleteReport:")
     print(CompleteReport.generate(data_list))
     print("\n\n")
+    print("Inventory")
+    print(
+        Inventory.import_data(
+            "inventory_report/data/inventory.xml",
+            "simples",
+        )
+    )
 
 
 if __name__ == "__main__":
