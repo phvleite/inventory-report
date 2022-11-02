@@ -3,7 +3,9 @@
 # from inventory_report.reports.simple_report import SimpleReport
 # from inventory_report.reports.complete_report import CompleteReport
 # from inventory_report.inventory.inventory import Inventory
-from inventory_report.importer.csv_importer import CsvImporter
+# from inventory_report.importer.csv_importer import CsvImporter
+# from inventory_report.importer.json_importer import JsonImporter
+from inventory_report.importer.xml_importer import XmlImporter
 
 
 # def product_test():
@@ -47,8 +49,18 @@ def main():
     #         "simples",
     #     )
     # )
-    print("CsvImporter:")
-    print(CsvImporter.import_data("inventory_report/data/inventory.csv"))
+    # print("CsvImporter:")
+    # data = CsvImporter.import_data("inventory_report/data/inventory.csv")
+    # for prd in data:
+    #     print(prd)
+    # print("JsonImporter:")
+    # data = JsonImporter.import_data("inventory_report/data/inventory.json")
+    # for prd in data:
+    #     print(prd)
+    print("XmlImporter:")
+    data = XmlImporter.import_data("inventory_report/data/inventory.xml")
+    for prd in data:
+        print(prd)
 
 
 if __name__ == "__main__":
