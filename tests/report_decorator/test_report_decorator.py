@@ -49,4 +49,4 @@ def test_decorar_relatorio():
     assert "\033[32mEmpresa com mais produtos:\033[0m" in report
     for date in report_dates:
         assert f"\033[36m{date}\033[0m" in report
-    assert "\033[31m" + sr[index_start:index_finish] + "\033[0m" in report
+    assert f"\033[31m{sr[index_start:index_finish]}\033[0m" in report
