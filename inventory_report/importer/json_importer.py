@@ -3,8 +3,7 @@ import json
 
 
 class JsonImporter(Importer):
-    @classmethod
-    def import_data(cls, filepath: str):
+    def import_data(filepath: str):
         if filepath.endswith(".json"):
             data = JsonImporter.__read_file(filepath)
         else:

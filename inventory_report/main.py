@@ -70,7 +70,7 @@ def main():
     # cp = ColoredReport(SimpleReport)
     # print(cp.generate(data_list))
     data = InventoryRefactor(CsvImporter)
-    data.import_data("inventory_report/data/inventory.csv")
+    print(data.import_data("inventory_report/data/inventory.csv", "simples"))
     iterator = iter(data)
     first_item = next(iterator)
     second_item = next(iterator)

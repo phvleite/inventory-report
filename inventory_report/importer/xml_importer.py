@@ -3,8 +3,7 @@ import xmltodict
 
 
 class XmlImporter(Importer):
-    @classmethod
-    def import_data(cls, filepath: str):
+    def import_data(filepath: str):
         if filepath.endswith(".xml"):
             data = XmlImporter.__read_file(filepath)
         else:
