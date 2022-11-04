@@ -13,13 +13,6 @@ class CsvImporter(Importer):
 
     def __read_file(filepath):
         with open(filepath, encoding="utf8", mode="r") as csv_file:
-            CsvImporter_reader = csv.reader(csv_file, delimiter=",")
-            cab, *data = CsvImporter_reader
-            data_csv = []
-            data_csv = []
-            for prd in data:
-                csv_dict = {}
-                for ind, elem in enumerate(prd):
-                    csv_dict[cab[ind]] = elem
-                data_csv.append(csv_dict)
+            csv_importer_dict_reader = csv.DictReader(csv_file, delimiter=",")
+            data_csv = list(csv_importer_dict_reader)
         return data_csv
