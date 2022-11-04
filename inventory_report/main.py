@@ -4,9 +4,10 @@ from tests.factories.product_factory import ProductFactory
 # from inventory_report.reports.complete_report import CompleteReport
 # from inventory_report.inventory.inventory import Inventory
 from inventory_report.importer.csv_importer import CsvImporter
-# from inventory_report.importer.json_importer import JsonImporter
-# from inventory_report.importer.xml_importer import XmlImporter
+from inventory_report.importer.json_importer import JsonImporter
+from inventory_report.importer.xml_importer import XmlImporter
 # from inventory_report.reports.colored_report import ColoredReport
+from inventory_report.inventory.inventory_refactor import InventoryRefactor
 
 
 def product_test():
@@ -50,10 +51,10 @@ def main():
     #         "simples",
     #     )
     # )
-    print("CsvImporter:")
-    data = CsvImporter.import_data("inventory_report/data/inventory.csv")
-    for prd in data:
-        print(prd)
+    # print("CsvImporter:")
+    # data = CsvImporter.import_data("inventory_report/data/inventory.csv")
+    # for prd in data:
+    #     print(prd)
     # print("JsonImporter:")
     # data = JsonImporter.import_data("inventory_report/data/inventory.json")
     # for prd in data:
@@ -64,6 +65,18 @@ def main():
     #     print(prd)
     # cp = ColoredReport(SimpleReport)
     # print(cp.generate(data_list))
+    data = InventoryRefactor(CsvImporter)
+    print("Csv:")
+    print(data.import_data("inventory_report/data/inventory.csv", "simples"))
+    print("\n")
+    data = InventoryRefactor(JsonImporter)
+    print("Json:")
+    print(data.import_data("inventory_report/data/inventory.json", "simples"))
+    print("\n")
+    data = InventoryRefactor(XmlImporter)
+    print("Xml:")
+    print(data.import_data("inventory_report/data/inventory.xml", "simples"))
+    print("\n")
 
 
 if __name__ == "__main__":
