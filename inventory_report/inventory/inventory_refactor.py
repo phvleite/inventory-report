@@ -1,24 +1,16 @@
-from inventory_report.reports.simple_report import SimpleReport
-from inventory_report.reports.complete_report import CompleteReport
+from collections.abc import Iterable
+from inventory_report.inventory.inventory_iterator import InventoryIterator
 
 
-class InventoryRefactor:
+class InventoryRefactor(Iterable):
     def __init__(self, importer):
         self.importer = importer
 
     def import_data(self, filepath: str, type: str):
         try:
-            self.data = self.importer.import_data(filepath)
-            report = InventoryRefactor.__verify_type_inventory(self.data, type)
-            return report
+            self.data = self.importer.import_data(filepath, type)
         except ValueError:
             print("Invalid file!")
 
-    def __verify_type_inventory(data, type):
-        if type == "simples":
-            report = SimpleReport.generate(data)
-        elif type == "completo":
-            report = CompleteReport.generate(data)
-        else:
-            raise ValueError("Tipo de relatório inválido")
-        return report
+    def __iter__(self):
+        return InventoryIterator(self.data, type)
